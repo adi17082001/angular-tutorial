@@ -1,0 +1,73 @@
+angular: 
+
+it is a frontend javascript framework for building interactive, modern web user interfaces
+it's also a collection of tools and feature like CLI (eg. ng serve, ng serve --open, etc), Debugging tools, IDE plugin\
+
+why use angular instead of using "just javascript"?
+
+for trivial websites and web apps, you would not need angular.But frameworks like Angular do really shine
+as your applications become more complex because they simplify the process of building complex, highly interactive web user interfaces.
+
+reason: 
+1. you can write declarative code with angular instead of imperative code ( step by step instructions) like Vanilla javascript
+
+components in angular:
+you build a component tree. 
+one angular application = one component tree
+
+eg:                         app component
+								|	|					|
+				Header Component     User component 	Tasks component			
+
+components are custom HTML elements
+
+Why components?
+
+1. Modular Applications:
+break up complex apps into simple building blocks
+split up responsibilities and concerns
+build a component once and reuse it often as needed.
+
+2. Better Dev Process
+Assign diff team members to diff components
+Share components and logic across the team
+reduce dependencies
+
+
+Angular has some OOP concepts & principles
+
+Angular uses TypeScript (not vanilla javascript)
+
+Typescript is a Javascript superset - an extension of JavaScript. It extends JS syntax to support strong and strict typing. Unlike vanilla js, TS enforces types and prevents unexpected value type changes
+
+Easier dev with typescript: 
+with TS, you can often catch errors early on during development. 
+without TS, those errors would be undetected and then posibly only surface at runtime when application crashes or behaves incorrectly.
+
+
+Angular team releases -> major releases every 6 months
+despite labeled as major releases, these releases do not break your code & " change the framework"
+
+2016 - angular 2 released
+
+2017 - angular 4 released (v3 skipped)
+
+2017 - version 5 releaes
+
+-: - angular 6 - 13 released 
+
+2022 - angular 14 and 15 released: angular 14 introduces "standalone components"
+
+2023 - angular 16 is released. : angular 16 introduces signals
+
+But to follow along with exactly the same setup as shown over the next lectures, you should create new projects via ng new first-angular-app --no-zoneless.
+
+In the next lecture, I just run ng new first-angular-app - but with Angular v21+, this will give you a project that is configured in a "zoneless" mode, a mode we'll explore in detail a little later in the course. Therefore, to get started, I recommend creating projects with the --no-zoneless flag.
+
+latest as per 2026: v21 is the stable version latest
+
+
+create new angular app: ng new first-angular-app --no-zoneless
+start the app: npm start
+
+
