@@ -71,3 +71,34 @@ create new angular app: ng new first-angular-app --no-zoneless
 start the app: npm start
 
 
+folder structure:
+
+all the files you find in the top level of your project are configuration files
+
+package files: manage the dependencies of your application.
+we will use features from these dependencies in our code
+
+angular.json: contains extra configuration for angular CLI and angular provided tools in general. You dont need to change anything in this files
+
+.editorconfig: contains some rules for the code editorconfig
+.gitignore: relevant if you are using gitignore
+
+src folder -> 
+app folder: here you will build angular components
+naming convention standard: app.component.html, css, ts. 
+
+styles.css file: global styles across all components
+index.html: main html file which will be loaded when visitors visit your websites
+
+main.ts : it will be the first code file, to be executed when the angular application loads in the browser of the visitors, i.e. the code of this will be executed first
+
+assets folder: store images to be used
+
+app folder: in this folder you will build and combine all the angular components
+
+
+npm install: install all those dependencies mentioned in the package.json
+need to do it only once
+
+
+## npm start: under the hood it executes "npm serve"
