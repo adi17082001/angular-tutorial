@@ -102,3 +102,40 @@ need to do it only once
 
 
 ## npm start: under the hood it executes "npm serve"
+
+
+### HOW IS THE SCREEN LOADED?, I MEAN HOW DOES CONTENT END UP ON OUR SCREEN?
+
+1. the index.html is the file that loads.
+2. in this file, you can see in the <body> element, there is this custom <app-root> element, but there is no <script> tag in this file.
+3. But when you run the application and do the "page source" on browser, you see some <script> tag with js file imports as below:
+	<script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script></body>
+4. those are injected into this file automatically by the Angular CLI when you build and run your application
+5. That is how the code in this main.ts gets executed after begin compiled into JavaScript code, which is also done by the Angular CLI. That's why in the page source, we find this "main.js" file being imported
+6. so its the compiled code of main.ts that gets executed.
+7. this code executes the bootstrapApplication() method provided by an angular package, and this method takes an Angular component as input.
+	eg: bootstrapApplication(AppComponent).
+	AppComponent -> import from ./app/app.component. => now here the .ts is missing from app.component.ts, reason: for importing something from .ts file, we should omit '.ts' extension in the import
+8. AppComponent is a class inside the app.component.ts, and it has a decorator @Component(...) attached to it. This decorator adds some metadata to the thing it is attached to (in this case, the AppComponent class)
+9. we are importing this decorator from the "core" package of the "angular" framework: import {Component} from '@angular/core';
+10. It is this decorator that converts a standard class into such a Angular Component that is treated as a component i.e. a custom HTML element
+11. This @Component decorator receives some object having some metadata:
+				@Component({
+				selector: 'app-root',
+				standalone: true,
+				imports: [],
+				templateUrl: './app.component.html',
+				styleUrl: './app.component.css',
+				})
+				as you can see, @Component takes the object: 
+					{
+						selector: 'app-root',
+						standalone: true,
+						imports: [],
+						templateUrl: './app.component.html',
+						styleUrl: './app.component.css',
+					}
+
+12. "selector" property: it tells Angular for which elements to look in the HTML code, so that those elements can be replaced by the component and its markup.
+13. The markup of this component is stored in the file whose path is given by this "templateUrl" property
+14. "styleUrl": this contains the styles that apply only to the markup of this component. They can't clash with other styles
