@@ -212,3 +212,14 @@ angular-tutorial/
 
  ## I had .git file in first-angular-app as well. But there should be only one .git file and that at the root.
  delete the .git file inside any other directory.
+
+
+ ## Creating Custom Component using Angular CLI:
+
+ ng generate component <<name>> <<path>>
+		OR 
+ ng g c <<name>> <<path>>
+
+ Eg: ng generate component user: -> angular CLI creates the user folder inside the src/app folder
+
+ extra file added: user.component.specs.ts -> used for automated tests, not needed right now
