@@ -197,3 +197,18 @@ entry as
 	"src/assets"
 ]
 If not, manually add "src/assets" inside the "assets"[] array, also add "src/favicon.ico" to see this as well
+
+
+
+### 🧩 Pro tip for your Angular learning repo
+
+Your structure should look like this:
+
+angular-tutorial/
+ ├── first-angular-app/
+ ├── 01-starting-project/
+ ├── angular-notes.txt
+ └── .git
+
+ ## I had .git file in first-angular-app as well. But there should be only one .git file and that at the root.
+ delete the .git file inside any other directory.
