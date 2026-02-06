@@ -139,3 +139,61 @@ need to do it only once
 12. "selector" property: it tells Angular for which elements to look in the HTML code, so that those elements can be replaced by the component and its markup.
 13. The markup of this component is stored in the file whose path is given by this "templateUrl" property
 14. "styleUrl": this contains the styles that apply only to the markup of this component. They can't clash with other styles
+15. "standalone": true: this property is by default true for Angular versions >= 19. If version is lesser, you need to define it explicitly.
+	it means that the component does NOT belong to any NgModule and it manages its own dependencies
+
+After Angular 20: the file naming pattern has changed. Eg. its now only header.ts instead of header.component.ts
+
+
+@Component({
+    selector: 'app-header',
+    // template: '<h1>Hello World </h1>' - you can use this for small UI / demos. For more complex ones, use templateUrl: html page
+	....
+})
+
+ templateUrl: './header.component.html': this "./" means that this file is present in the same folder
+
+ ## standalone: true - it means it is a standalone component and not module based component
+
+ # module based component:
+	1. Components are declared inside @NgModule
+	2. Modules manage:
+		Declarations
+		Imports (CommonModule, FormsModule, etc.)
+		Exports
+	3.AppModule (root module) bootstraps the app
+
+# standalone component:
+	1. No module needed
+	2. Component manages its own dependencies
+	3.Can be:
+		Bootstrapped directly
+		Lazy loaded
+		Used inside other standalone components or modules
+
+# Only if you add this <app-header> inside index.html, it wont work as angular looks for components to run in main.ts
+so, in main.ts add like: bootstrapApplication(HeaderComponent); - now angular its aware of it, it finds its tag and renders it
+
+but this is not how you build angular app. The idea is build nested components, app Component will be the root component, others will be inside it. eg:
+							        app component
+							|	          |				|
+				Header Component	User Component    Tasks Component 
+														    |
+														Task Component	
+	
+One Angular Appliction = One Component Tree
+
+so the idea is that you call the bootstrapApplication(..) only once, on the root component, and then you use other components inside that root component's template
+eg: replace the <header> in the app.component.html with our customer <app-header> tag
+
+Error: app-header is not a known element: it means you have not imported our HeaderComponent inside the app.component.ts's @Component decorator
+
+## styles.css in top level of project: applies styles to all the components
+## css files of components: apply only to that particular components
+
+## When using the assets folder to import images, etc, you should make sure that the angular.json file in your root directory has an 
+entry as 
+"assets": [
+	"src/assets"
+]
+If not, manually add "src/assets" inside the "assets"[] array, also add "src/favicon.ico" to see this as well
