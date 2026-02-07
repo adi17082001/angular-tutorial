@@ -223,3 +223,41 @@ angular-tutorial/
  Eg: ng generate component user: -> angular CLI creates the user folder inside the src/app folder
 
  extra file added: user.component.specs.ts -> used for automated tests, not needed right now
+
+ ## If you have components that dont have anything between them: like <app-user></app-user>
+ then you can write them as <app-user/>
+ NOTE: Only void and foreign components can be self-closed as above
+
+ ## 
+ export class UserComponent {
+  selectedUser = ...
+} 
+
+Angular will make this "selectedUser" property and its value available to its markup i.e. user.component.html
+so, all the properties you are defining inside the class, are available to the template of that component
+
+### Just make sure you do not add "let" or "const" keyword to the property
+Reason: Because:
+let / const are for block-scoped variables
+Class fields are properties, not local variables
+
+### STRING INTERPOLATION:
+
+{{....}} -> by adding these two curly braces in the html template, you can now use any of your public property from your component class
+
+eg. <span> {{ selectedUser.name }} </span>
+
+## We use this string interpolation only when needed between the tags as above
+
+## Property Binding Syntax:
+Property binding is how you bind a value from the component class to a property of a DOM element or Angular component.
+
+eg: <img [src]="'assets/users/' + selectedUser.avatar" alt="">
+You wrap the name of the property that is to be set inside square brackets: (as [src] in above example)
+
+here I am constructing a string which is the path of the image.
+NOTE: " 'assets/users/' + selectedUser.avatar".
+here we have used single quotes inside the main string
+
+
+## Dynamic Data Output: Create a randomIndex which is a random index generated and use it to access any of the DUMMY_USERS array object which is a user.
