@@ -253,7 +253,7 @@ eg. <span> {{ selectedUser.name }} </span>
 Property binding is how you bind a value from the component class to a property of a DOM element or Angular component.
 
 eg: <img [src]="'assets/users/' + selectedUser.avatar" alt="">
-You wrap the name of the property that is to be set inside square brackets: (as [src] in above example)
+You wrap the name of the property that is to be set inside square brackets: (property src in above example)
 
 here I am constructing a string which is the path of the image.
 NOTE: " 'assets/users/' + selectedUser.avatar".
@@ -261,3 +261,13 @@ here we have used single quotes inside the main string
 
 
 ## Dynamic Data Output: Create a randomIndex which is a random index generated and use it to access any of the DUMMY_USERS array object which is a user.
+
+### Getters:
+eg: 
+// adding a getter
+  get imagePath(){
+    return 'assets/users/' + this.selectedUser.avatar; // adding "this" here as we want to access the property of the class from within that same class
+  }
+inside UserComponent class
+
+and add it in user.component.html like this: <img [src]="imagePath">
