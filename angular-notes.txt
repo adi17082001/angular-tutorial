@@ -271,3 +271,23 @@ eg:
 inside UserComponent class
 
 and add it in user.component.html like this: <img [src]="imagePath">
+
+
+### Listening to Events with Event Binding
+
+We often need to listen to user input, so that you can update the UI upon certain kinds of input
+Steps: 
+1. Listen to User input
+2. Change the UI on the basis of User input
+
+Eg: we would like to add a listener to that button to listen for click events
+
+In Angular where you write declarative code, you add event listeners to elements by going to those elements in your templates
+
+Angular's syntax for adding an event listener to an element:
+	<button (click)="onSelectUser()">
+
+here as you can see the "click" event is added, which is wrapped in curly braces
+
+and this onSelectUser() is added inside the Component class, let's say the UserComponent in this case.
+and you then add it to the template as shown above, with curly braces "()" as if you are calling this method

@@ -19,4 +19,9 @@ export class UserComponent {
   get imagePath(){
     return 'assets/users/' + this.selectedUser.avatar; // adding "this" here as we want to access the property of the class from within that same class
   }
+
+  // event listener method
+  onSelectUser(){
+    console.log('Clicked');
+  }
 } 
