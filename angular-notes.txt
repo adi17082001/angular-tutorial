@@ -299,3 +299,109 @@ i.e for example, the user should be changed everytime I click it
 We need to manage some data in our component class, which when changed has an impact on the UI. 
 This kind of data is called as "state", because it is data that will have impact on the state of the UI
 
+#### Angular's Change Detection Mechanism
+
+1️⃣ What is Change Detection in Angular?
+
+Change Detection is Angular’s way of keeping the view (HTML) in sync with the model (component data).
+
+👉 Whenever something changes in your component:
+
+this.name = 'Aditya';
+
+Angular automatically updates:
+
+<p>{{ name }}</p>
+
+That automatic update is change detection.
+
+## 2️⃣ The Big Question: How does Angular know something changed?
+
+JavaScript itself does NOT notify when variables change.
+
+Angular needs a signal like:
+
+“A button was clicked”
+
+“An HTTP response arrived”
+
+“A timer finished”
+
+“A promise resolved”
+
+That signal is provided by Zone.js ✅
+
+3️⃣ What is Zone.js (in simple words)?
+
+Zone.js is a library that patches async APIs in JavaScript.
+
+It monitors async operations like:
+
+setTimeout
+
+setInterval
+
+Promise.then
+
+addEventListener
+
+HTTP requests
+
+async / await
+
+So Angular knows:
+
+“Hey! Something async just finished → UI might need updating.”
+
+4️⃣ How Angular + Zone.js Work Together (Step-by-Step)
+🔁 Example: Button Click
+<button (click)="increment()">+</button>
+<p>{{ count }}</p>
+
+increment() {
+  this.count++;
+}
+
+🔄 What actually happens internally
+
+1️⃣ User clicks the button
+2️⃣ Browser triggers a click event (async task)
+3️⃣ Zone.js intercepts this event
+4️⃣ Zone.js informs Angular:
+
+“An async task just completed”
+5️⃣ Angular runs change detection
+6️⃣ Angular checks:
+
+Did count change? ✅
+7️⃣ Angular updates the DOM
+
+✨ You didn’t call anything manually — it just worked.
+
+### 5️⃣ Change Detection Cycle (Core Flow)
+
+Whenever Zone.js finishes an async task, Angular does:
+
+Zone.js → Angular → ApplicationRef.tick()
+
+
+Which means:
+
+Angular checks all components
+Compares old values vs new values
+Updates DOM where needed
+This is called a change detection cycle
+
+6️⃣ What Exactly Does Angular Check?
+
+Angular checks template expressions, like:
+
+{{ name }}
+{{ count }}
+[user]="selectedUser"
+
+It compares:
+previous value  vs  current value
+If different → DOM update
+
+
