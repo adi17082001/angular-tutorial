@@ -291,3 +291,11 @@ here as you can see the "click" event is added, which is wrapped in curly braces
 
 and this onSelectUser() is added inside the Component class, let's say the UserComponent in this case.
 and you then add it to the template as shown above, with curly braces "()" as if you are calling this method
+
+### MANAGING STATES AND CHANGING Data
+
+Eg: When we click the box, instead of getting "Clicked!" in the console, we now want to update the UI
+i.e for example, the user should be changed everytime I click it
+We need to manage some data in our component class, which when changed has an impact on the UI. 
+This kind of data is called as "state", because it is data that will have impact on the state of the UI
+
