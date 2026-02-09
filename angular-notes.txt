@@ -405,3 +405,86 @@ previous value  vs  current value
 If different → DOM update
 
 
+### Introduction to signals
+
+There are two approaches for updating state
+
+Option 1:
+1.Relying on Zone.js & Angular's change detection Mechanism
+It works automatically, no special instructions required. Supported since Angular 2
+
+2. Signals: 
+Use signals to notify Angular about value changes and required UI updates
+Requires usage of special "signal" instructions and code. Supported since Angular 16
+
+Signals are special kinds of values that tell Angular when they change
+ ### Signal is an object that stores a value(any type of value, including nested objects)
+
+ eg. create a signal like this:
+ selectedUser = signal(DUMMY_USERS[randomIndex]); -> inside user.component.ts
+ -- signal is more like a container, that contains a value like this dummy user here.
+ and when you change that value, Angular will be notified about that change, and then Angular identifies all the places where that value is being is used i.e. that signal is being used, and then its able to update these places.
+ So, the idea behind Signals is that you dont just have some initial values in them, but you also can change those values
+
+## Change value of signal:
+You can change the value of signal by calling the set method on that Signal object.
+
+
+## When you have a value stored in a signal, don't access it like this: {{ selectedUser.name }}
+Instead, access it like {{ selectedUser().name }} - you have to call the Signal value as a function by adding parentheses
+This then executes the signal's read method, and gives you the value that is currently stored in the signal
+
+### Angular sets up a tracking mechanism that automatically makes sure that the UI is updated whenever the underlying value is changed.
+
+This is different from the State Management Mechanism we had before without Signals, because there we were using the sub-package Zone.js, which creates a zone around your components, which is simply like an invisible group mechanism where it listens to all the events and could trigger the state changes, so the data changes that could affect the UI.
+So, whenever a trigger occurs, example, click occurs, Angular goes ahead and checks all the components in that zone to find out whether some data changed that needs to be updated on UI.
+
+				|---------------------------------------------------------------------------------------------|
+				|																							  |
+				|							 	         App Component 										  |
+				|											  |												  |
+				|							--------------------------------------------					  |
+				|							|				  |						   |					  |
+				|						Header				 User					Tasks Component			  |
+				|										  Component						|					  |
+				|																	Task Component			  |
+				|																							  |
+				|														 									  |
+				|																							  |
+				|		Consider this whole box as a "ZONE"													  |
+				|---------------------------------------------------------------------------------------------|
+
+
+
+This is the change detection without signals.
+Advantage of Signals is that Angular can get rid of this Zone.js and this zone concept.
+
+this concept allows Angular to update the UI in a more fine grained way where it doesnt have to check anyting for every possible event that could occut anywhere in the application.
+
+## Signals were introduced in Angular 16
+
+
+### Computing values while using signals:
+
+This is when we aren't using signals:
+
+get imagePath(){
+    return 'assets/users/' + this.selectedUser.avatar; // adding "this" here as we want to access the property of the class from within that same class
+  }
+
+While working with signals, use the "computed" function, which takes a function as an argument, and it should return the computed value. Shown below:
+  imagePath = computed(() => 'assets/users/' + this.selectedUser().avatar);
+
+Why use this "computed" method?
+By using it, angular automatically analyzes whether you are reading any signal value inside of the function you passed. In that case, angular sets up a subscription that signal that's being used there.
+selectedUser is the signal in this case. And whenever that signal receives a new value, only then Angular will recompute the imagePath
+So, it is a very efficient way of setting up a computed value because it will not be recomputed everytime anything changes in this component or the overall application, but instead it will be recomputed
+when if one of the signals is used inside of it.
+
+### You just now have to make sure that in the template, you also execute this computed property, because under the hood it also creates a signal, Just a signal that will automatically update whenver the signals it depends on
+(like selectedUser in this case) changes.
+## You can see by hovering over imagePath that it is also a signal. Since that the case, you have to execute it in your template like a function as shown below:
+	<img 
+            [src]="imagePath()" --------- as you can see on this line, imagePath is a signal, so execute it like a function
+            [alt] = "selectedUser().name"
+    />
